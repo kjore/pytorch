@@ -51,7 +51,7 @@ img_center_crop = transforms.CenterCrop(100) # 中心裁剪，先实现这个工
 img_trans = img_center_crop(img)  #再利用这个工具对图像进行处理
 img_to_tensor = transforms.ToTensor()  # 同样先实现工具
 img_trans = img_to_tensor(img_trans)  #再利用工具
-writer.add_image("tensor", img_trans, global_step=1)
+writer.add_image("tensor1", img_trans, global_step=1)
 
 
 
@@ -65,6 +65,6 @@ img_transforms = transforms.Compose([
     transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])  # 标准化
 ])
 img_trans_compose=img_transforms(img2)
-writer.add_image("tensor", img_trans_compose,global_step=2)
+writer.add_image("tensor2", img_trans_compose,global_step=2)
 writer.close()
 
