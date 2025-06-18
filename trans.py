@@ -1,8 +1,5 @@
 '''transforms模块提供常用的图像变换，张量变换操作。这些变换可以通过 Compose 进行链式组合。'''
 import random
-from email.charset import add_alias
-from email.headerregistry import Address
-
 import numpy as np
 import torchvision.transforms as transforms
 import torch
