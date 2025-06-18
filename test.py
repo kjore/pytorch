@@ -1,5 +1,4 @@
 import torch
-
 # 检查PyTorch版本
 print(f"PyTorch版本: {torch.__version__}")
 # 检查CUDA是否可用（GPU支持）
