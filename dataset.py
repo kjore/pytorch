@@ -34,4 +34,4 @@ class MyTransform:
         # 在这里定义你的转换逻辑
         return img
 
-dataset = MyDataset(train_data, transform=MyTransform())
+#dataset = MyDataset(train_data, transform=MyTransform())
