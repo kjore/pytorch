@@ -45,11 +45,16 @@ for i in range(epoch):
     for data in train_loader:
         imgs, targets = data
         imgs, targets = imgs.to(device), targets.to(device)  # 将数据移动到GPU上
-        outputs = mynn(imgs)
-        loss = loss_fn(outputs, targets)
 
+        '''首先清空梯度
+        然后进行前向计算
+        计算损失
+        反向传播计算梯度
+        最后更新参数'''
         # 优化器优化模型
         optimizer.zero_grad()
+        outputs = mynn(imgs)
+        loss = loss_fn(outputs, targets)
         loss.backward()
         optimizer.step()
 
