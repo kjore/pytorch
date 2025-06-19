@@ -1,14 +1,13 @@
 
 
-
-'''构建神经网络'''
+#构建神经网络模型
 
 import torch
 from torch import nn
 
 class Mynn(nn.Module):
     def __init__(self):
-        super(Mynn, self).__init__()
+        super().__init__()
         self.model = nn.Sequential(
             nn.Conv2d(3, 32, 5, 1, 2),
             nn.MaxPool2d(2),
