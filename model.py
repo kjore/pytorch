@@ -4,6 +4,8 @@
 
 import torch
 from torch import nn
+from torch.utils.tensorboard import SummaryWriter
+
 
 class Mynn(nn.Module):
     def __init__(self):
@@ -24,9 +26,12 @@ class Mynn(nn.Module):
         x = self.model(x)
         return x
 
-
+#这段代码只有在直接运行model.py文件时才会执行，而不会在导入该模块时执行
 if __name__ == '__main__':
     Mynn = Mynn()
     input = torch.ones((64, 3, 32, 32))
     output = Mynn(input)
     print(output.shape)
+    writer = SummaryWriter("log_Model")
+    writer.add_graph(Mynn, input)
+    writer.close()
