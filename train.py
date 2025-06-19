@@ -21,8 +21,8 @@ train_loader = DataLoader(train_data,batch_size=64,shuffle=True)
 test_loader = DataLoader(test_data,batch_size=64,shuffle=False)
 
 # 准备模型
-
-mynn = Mynn()
+device = "cuda" if torch.cuda.is_available() else "cpu"  # 检查是否有GPU可用，如果有则使用GPU
+mynn = Mynn().to(device)  # 检查是否有GPU可用，如果有则使用GPU
 
 # 准备损失函数和优化器
 loss_fn = nn.CrossEntropyLoss()
@@ -44,6 +44,7 @@ for i in range(epoch):
     mynn.train()
     for data in train_loader:
         imgs, targets = data
+        imgs, targets = imgs.to(device), targets.to(device)  # 将数据移动到GPU上
         outputs = mynn(imgs)
         loss = loss_fn(outputs, targets)
 
@@ -64,6 +65,7 @@ for i in range(epoch):
     with torch.no_grad():
         for data in test_loader:
             imgs, targets = data
+            imgs, targets = imgs.to(device), targets.to(device)  # 将数据移动到GPU上
             outputs = mynn(imgs)
             loss = loss_fn(outputs, targets)
             total_test_loss = total_test_loss + loss.item()
