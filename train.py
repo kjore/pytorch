@@ -1,11 +1,9 @@
-import torch
+
 import torchvision.transforms as transforms
-import torchvision.models as models
-from torch.utils.tensorboard import SummaryWriter
 import torchvision
 from torch.utils.data import DataLoader
 from model import*
-
+import os
 
 #准备数据集
 train_data = torchvision.datasets.CIFAR10(root="./data",train=True,transform=transforms.ToTensor(),download=True)  # 训练集
@@ -21,11 +19,15 @@ train_loader = DataLoader(train_data,batch_size=64,shuffle=True)
 test_loader = DataLoader(test_data,batch_size=64,shuffle=False)
 
 # 准备模型
-device = "cuda" if torch.cuda.is_available() else "cpu"  # 检查是否有GPU可用，如果有则使用GPU
+'''使用GPU加速时，必须将模型，损失函数和数据都移动到GPU上'''
+#device = "cuda" if torch.cuda.is_available() else "cpu"  # 检查是否有GPU可用，如果有则使用GPU
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")  # 检查是否有GPU可用，如果有则使用GPU
 mynn = Mynn().to(device)  # 检查是否有GPU可用，如果有则使用GPU
+
 
 # 准备损失函数和优化器
 loss_fn = nn.CrossEntropyLoss()
+loss_fn.to(device)
 optimizer = torch.optim.SGD(mynn.parameters(), lr=0.001)
 
 #训练参数设置
@@ -83,6 +85,7 @@ for i in range(epoch):
     writer.add_scalar("test_accuracy", total_accuracy/test_len, total_test_step)
     total_test_step = total_test_step + 1
 
+    os.makedirs("mynni", exist_ok=True)#若无此文件夹则创建
     torch.save(mynn, "mynni/mynn_{}.pth".format(i))
     print("模型已保存")
 
