@@ -10,6 +10,7 @@ if torch.cuda.is_available():
 else:
     print("CUDA不可用，PyTorch将在CPU模式下运行。")
 
+print(torch.cuda.device_count())
 
 
 
